@@ -12,3 +12,26 @@
   --brand-orange: 13 95% 66%;
   --brand-yellow: 42 91% 68%;
 }
+
+@layer base {
+  * {
+    @apply p-0 m-0 box-border;
+  }
+  body {
+    @apply bg-very-dark-grey container mx-auto border font-jetbrains;
+  }
+}
+
+@layer utilities {
+  h2 {
+    @apply text-[32px] max-md:text-[24px] font-bold leading-[43px] text-almost-white;
+  }
+
+  h3 {
+    @apply text-[24px] max-md:text-[16px] font-bold leading-[31px] text-almost-white;
+  }
+
+  p {
+    @apply text-[18px] leading-[23px] text-almost-white font-bold;
+  }
+}
