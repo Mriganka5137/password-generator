@@ -32,6 +32,6 @@
   }
 
   p {
-    @apply text-[18px] leading-[23px] text-almost-white font-bold;
+    @apply text-[18px] max-md:text-[16px] leading-[23px] text-almost-white font-bold;
   }
 }

@@ -31,7 +31,7 @@ export default function Home() {
 
         {/* Password Settings */}
 
-        <div className=" bg-dark-grey flex flex-col w-full mt-6 p-8 ">
+        <div className=" bg-dark-grey flex flex-col w-full mt-6 p-8 max-md:p-3.5 ">
           {/* Label and length */}
           <div className="flex justify-between items-center ">
             <p className="text-almost-white">Character Length</p>
