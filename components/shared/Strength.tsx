@@ -4,11 +4,6 @@ interface Props {
   strength: number;
 }
 
-// strength 1 :  Too weak
-// strength 2 :  Weak
-// strength 3 :  Medium
-// strength 4 :  Strong
-// Map the strength value to the corresponding text
 const strengthMap: { [key: number]: string } = {
   1: "Too weak!",
   2: "Weak",

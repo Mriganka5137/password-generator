@@ -1,5 +1,5 @@
+import IconArrow from "@/components/shared/IconArrow";
 import React from "react";
-import IconArrow from "@/public/assets/images/IconArrow";
 interface Props {
   generatePassword: () => void;
 }
