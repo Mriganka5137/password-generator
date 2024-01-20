@@ -1,20 +1,57 @@
 "use client";
-import Image from "next/image";
-import iconCopy from "@/public/assets/images/icon-copy.svg";
-import { useState } from "react";
+import { CheckboxList } from "@/components/shared/CheckboxList";
+import Strength from "@/components/shared/Strength";
 import { Slider } from "@/components/ui/slider";
+import iconCopy from "@/public/assets/images/icon-copy.svg";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+export type OptionKeys = "uppercase" | "lowercase" | "numbers" | "symbols";
+
+export type OptionsType = {
+  [K in OptionKeys]: boolean;
+};
 
 export default function Home() {
+  const [strength, setStrength] = useState(0);
   const [length, setLength] = useState(3);
+  const [options, setOptions] = useState<OptionsType>({
+    uppercase: false,
+    lowercase: false,
+    numbers: false,
+    symbols: false,
+  });
+
+  const handleCheckboxChange = (id: string) => {
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      [id]: !prevOptions[id as OptionKeys],
+    }));
+  };
 
   const handleValueChange = (value: number[]) => {
     setLength(value[0]);
   };
 
+  const calculateStrength = () => {
+    const { uppercase, lowercase, numbers, symbols } = options;
+    let strength = 0;
+    if (uppercase) strength++;
+    if (lowercase) strength++;
+    if (numbers) strength++;
+    if (symbols) strength++;
+    return strength;
+  };
+
+  useEffect(() => {
+    const strengthVal = calculateStrength();
+    setStrength(strengthVal);
+  }, [options]);
+
   return (
-    <main className="w-full h-screen border border-red-500 p-4 md:pt-36 pt-16">
+    <main className="w-full  border border-red-500 md:pt-36 pt-16 pb-16">
       {/* Password Generator */}
-      <div className=" max-w-[540px]  border border-yellow-800 mx-auto text-center">
+      <div className=" max-w-[540px]   mx-auto text-center">
         <h3 className="text-brand-grey">Password Generator</h3>
 
         {/* Copy Password */}
@@ -45,6 +82,14 @@ export default function Home() {
             onValueChange={handleValueChange}
             className="mt-6"
           />
+          {/* Checkboxes */}
+          <CheckboxList
+            options={options}
+            handleCheckboxChange={handleCheckboxChange}
+          />
+
+          {/* Strength */}
+          <Strength strength={strength} />
         </div>
       </div>
     </main>
