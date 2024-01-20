@@ -1,10 +1,10 @@
 "use client";
 import { CheckboxList } from "@/components/shared/CheckboxList";
+import CopyIcon from "@/components/shared/CopyIcon";
+import GenerateButton from "@/components/shared/GenerateButton";
 import Strength from "@/components/shared/Strength";
 import { Slider } from "@/components/ui/slider";
-import iconCopy from "@/public/assets/images/icon-copy.svg";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type OptionKeys = "uppercase" | "lowercase" | "numbers" | "symbols";
 
@@ -13,7 +13,10 @@ export type OptionsType = {
 };
 
 export default function Home() {
+  const passwordRef = useRef(null);
+  const [password, setPassword] = useState("");
   const [strength, setStrength] = useState(0);
+  const [copied, setCopied] = useState(false);
   const [length, setLength] = useState(3);
   const [options, setOptions] = useState<OptionsType>({
     uppercase: false,
@@ -43,6 +46,36 @@ export default function Home() {
     return strength;
   };
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(password);
+      setCopied(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const generatePassword = () => {
+    setCopied(false);
+    const { uppercase, lowercase, numbers, symbols } = options;
+    const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+    const numbersList = "0123456789";
+    const symbolsList = "!@#$%^&*()_+=";
+    let password = "";
+    let characters = "";
+    if (uppercase) characters += uppercaseLetters;
+    if (lowercase) characters += lowercaseLetters;
+    if (numbers) characters += numbersList;
+    if (symbols) characters += symbolsList;
+    for (let i = 0; i < length; i++) {
+      password += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    setPassword(password);
+  };
+
   useEffect(() => {
     const strengthVal = calculateStrength();
     setStrength(strengthVal);
@@ -56,13 +89,19 @@ export default function Home() {
 
         {/* Copy Password */}
         <div className=" flex justify-between px-8 py-5 items-center bg-dark-grey mt-8 max-md:mt-4 max-md:px-4 max-md:py-4 ">
-          <h2>PTx1f5DaFX</h2>
-          <Image
-            alt="copy"
-            src={iconCopy}
-            width={21}
-            height={24}
-            className=" w-5 h-6 max-md:w-4 max-md:h-5"
+          {password ? (
+            <h2 ref={passwordRef}>{password}</h2>
+          ) : (
+            <span className="text-brand-grey opacity-50 text-lg">
+              Your password
+            </span>
+          )}
+
+          {copied && <span className="text-neon-green text-lg">Copied!</span>}
+
+          <CopyIcon
+            onClick={handleCopy}
+            className="w-5 h-6 max-md:w-4 max-md:h-5 "
           />
         </div>
 
@@ -90,6 +129,7 @@ export default function Home() {
 
           {/* Strength */}
           <Strength strength={strength} />
+          <GenerateButton generatePassword={generatePassword} />
         </div>
       </div>
     </main>
