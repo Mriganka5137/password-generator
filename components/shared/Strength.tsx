@@ -18,8 +18,8 @@ const strengthMap: { [key: number]: string } = {
 
 const Strength = ({ strength }: Props) => {
   return (
-    <div className="w-full bg-very-dark-grey px-8 py-6 flex justify-between mt-8 items-center">
-      <p className=" text-brand-grey">STRENGTH</p>
+    <div className="w-full bg-very-dark-grey px-8 py-6 flex justify-between mt-8 items-center max-md:py-3 max-md:px-4">
+      <p className=" text-brand-grey max-md:text-[15px]">STRENGTH</p>
       <div className=" flex justify-between gap-3 items-center">
         <h3 className=" uppercase">{strengthMap[strength]}</h3>
         <div className=" flex justify-between gap-2 items-center">

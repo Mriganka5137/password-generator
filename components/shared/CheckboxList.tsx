@@ -23,14 +23,14 @@ export const CheckboxList = ({
   return (
     <div className="mt-10 space-y-5">
       {checkboxData.map(({ id, label }) => (
-        <div key={id} className="flex gap-5 items-center">
+        <div key={id} className="flex gap-5 items-center max-md:gap-2">
           <Checkbox
             id={id}
             checked={options[id as OptionKeys]}
             onCheckedChange={() => handleCheckboxChange(id)}
           />
           <label htmlFor={id}>
-            <p>{label}</p>
+            <p className="max-md:text-[14px]">{label}</p>
           </label>
         </div>
       ))}

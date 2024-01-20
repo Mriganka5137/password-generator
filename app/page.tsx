@@ -82,12 +82,10 @@ export default function Home() {
   }, [options]);
 
   return (
-    <main className="w-full  border border-red-500 md:pt-36 pt-16 pb-16">
-      {/* Password Generator */}
+    <main className="w-full  md:pt-36 pt-16 pb-16">
       <div className=" max-w-[540px]   mx-auto text-center">
         <h3 className="text-brand-grey">Password Generator</h3>
 
-        {/* Copy Password */}
         <div className=" flex justify-between px-8 py-5 items-center bg-dark-grey mt-8 max-md:mt-4 max-md:px-4 max-md:py-4 ">
           {password ? (
             <h2 ref={passwordRef}>{password}</h2>
@@ -105,15 +103,11 @@ export default function Home() {
           />
         </div>
 
-        {/* Password Settings */}
-
         <div className=" bg-dark-grey flex flex-col w-full mt-6 p-8 max-md:p-3.5 ">
-          {/* Label and length */}
           <div className="flex justify-between items-center ">
             <p className="text-almost-white">Character Length</p>
             <h2 className="text-neon-green">{length}</h2>
           </div>
-          {/* Range */}
           <Slider
             min={3}
             max={20}
@@ -121,13 +115,11 @@ export default function Home() {
             onValueChange={handleValueChange}
             className="mt-6"
           />
-          {/* Checkboxes */}
           <CheckboxList
             options={options}
             handleCheckboxChange={handleCheckboxChange}
           />
 
-          {/* Strength */}
           <Strength strength={strength} />
           <GenerateButton generatePassword={generatePassword} />
         </div>
